@@ -1,8 +1,11 @@
 import {
   AddUserRepository,
   CheckUserByEmailRepository,
-  LoadUserByEmailRepository
+  LoadUserByEmailRepository,
+  LoadUsersRepository
 } from '@/data/protocols'
+import { UserModel } from '@/domain/models'
+import { mockUsersModels } from '@/tests/domain/mocks'
 
 import faker from 'faker'
 
@@ -38,6 +41,16 @@ export class LoadUserByEmailRepositorySpy implements LoadUserByEmailRepository {
 
   async loadByEmail (email: string): Promise<LoadUserByEmailRepository.Result> {
     this.email = email
+    return this.result
+  }
+}
+
+export class LoadUsersRepositorySpy implements LoadUsersRepository {
+  result = mockUsersModels()
+  userId: string
+
+  async loadAll (userId: string): Promise<UserModel[]> {
+    this.userId = userId
     return this.result
   }
 }
