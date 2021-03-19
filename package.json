@@ -1,0 +1,11 @@
+{
+  "name": "bossabox-backend-challenge",
+  "version": "1.0.0",
+  "description": "Projeto criado para o desafio da plataforma BossaBox",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lucas Cotrim Machado",
+  "license": "ISC"
+}
