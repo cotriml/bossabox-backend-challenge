@@ -6,7 +6,7 @@
 2. Valida dados obrigatórios **email** | **password**
 3. Valida **email**
 4. Busca usuário no banco de dados com **email** e **password** fornecidos
-5. Gera um token de acesso a partir do **id** do usuário
+5. Gera um token de acesso a partir do **id** do usuário com expiração de 1h
 6. Retorna 200 com token de acesso e nome do usuário
 
 > ## Exceções ❌

@@ -1,7 +1,10 @@
 import {
   AddUserRepository,
-  CheckUserByEmailRepository
+  CheckUserByEmailRepository,
+  LoadUserByEmailRepository
 } from '@/data/protocols'
+
+import faker from 'faker'
 
 export class AddUserRepositorySpy implements AddUserRepository {
   result = true
@@ -18,6 +21,22 @@ export class CheckUserByEmailRepositorySpy implements CheckUserByEmailRepository
   email: string
 
   async checkByEmail (email: string): Promise<CheckUserByEmailRepository.Result> {
+    this.email = email
+    return this.result
+  }
+}
+
+export class LoadUserByEmailRepositorySpy implements LoadUserByEmailRepository {
+  result = {
+    id: faker.random.uuid(),
+    role: faker.random.word(),
+    name: faker.name.findName(),
+    password: faker.internet.password()
+  }
+
+  email: string
+
+  async loadByEmail (email: string): Promise<LoadUserByEmailRepository.Result> {
     this.email = email
     return this.result
   }
