@@ -19,6 +19,7 @@ export const mockUserModel = (): UserModel => {
     id: faker.random.uuid(),
     name: faker.name.firstName(),
     role: faker.random.word(),
+    email: faker.internet.email(),
     password: faker.internet.password()
   }
 }
