@@ -119,4 +119,54 @@ describe('UserMongoRepository', () => {
       expect(result).toBe(false)
     })
   })
+
+  describe('loadByToken()', () => {
+    let name = faker.name.findName()
+    let role = faker.random.word()
+    let email = faker.internet.email()
+    let password = faker.internet.password()
+    let accessToken = faker.random.uuid()
+
+    beforeEach(() => {
+      name = faker.name.findName()
+      role = faker.random.word()
+      email = faker.internet.email()
+      password = faker.internet.password()
+      accessToken = faker.random.uuid()
+    })
+
+    test('Should return an user on loadByToken', async () => {
+      const sut = makeSut()
+      await userCollection.insertOne({
+        name,
+        role,
+        email,
+        password,
+        accessToken
+      })
+      const user = await sut.loadByToken(accessToken, role)
+      expect(user).toBeTruthy()
+      expect(user.id).toBeTruthy()
+    })
+
+    test('Should return null on loadByToken with invalid role', async () => {
+      const sut = makeSut()
+      const invalidRole = faker.random.word()
+      await userCollection.insertOne({
+        name,
+        role,
+        email,
+        password,
+        accessToken
+      })
+      const user = await sut.loadByToken(accessToken, invalidRole)
+      expect(user).toBeFalsy()
+    })
+
+    test('Should return null if loadByToken fails', async () => {
+      const sut = makeSut()
+      const user = await sut.loadByToken(accessToken, role)
+      expect(user).toBeFalsy()
+    })
+  })
 })
