@@ -89,6 +89,20 @@ describe('UserMongoRepository', () => {
     })
   })
 
+  describe('updateAccessToken()', () => {
+    test('Should update the account accessToken on success', async () => {
+      const sut = makeSut()
+      const res = await userCollection.insertOne(mockAddUserParams())
+      const fakeUser = res.ops[0]
+      expect(fakeUser.accessToken).toBeFalsy()
+      const accessToken = faker.random.uuid()
+      await sut.updateAccessToken(fakeUser._id, accessToken)
+      const user = await userCollection.findOne({ _id: fakeUser._id })
+      expect(user).toBeTruthy()
+      expect(user.accessToken).toBe(accessToken)
+    })
+  })
+
   describe('delete()', () => {
     test('Should return true on deletion success', async () => {
       const sut = makeSut()

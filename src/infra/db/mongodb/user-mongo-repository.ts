@@ -4,12 +4,13 @@ import {
   DeleteUserRepository,
   LoadUsersRepository,
   CheckUserByEmailRepository,
-  LoadUserByEmailRepository
+  LoadUserByEmailRepository,
+  UpdateAccessTokenRepository
 } from '@/data/protocols/db'
 
 const usersColletionName = 'users'
 
-export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRepository, CheckUserByEmailRepository, LoadUsersRepository, DeleteUserRepository {
+export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRepository, CheckUserByEmailRepository, LoadUsersRepository, DeleteUserRepository, UpdateAccessTokenRepository {
   async add (data: AddUserRepository.Params): Promise<AddUserRepository.Result> {
     const userCollection = await MongoHelper.getCollection(usersColletionName)
     const result = await userCollection.insertOne(data)
@@ -53,6 +54,17 @@ export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRe
       }
     }).toArray()
     return MongoHelper.mapCollection(users)
+  }
+
+  async updateAccessToken (id: string, token: string): Promise<void> {
+    const userCollection = await MongoHelper.getCollection(usersColletionName)
+    await userCollection.updateOne({
+      _id: id
+    }, {
+      $set: {
+        accessToken: token
+      }
+    })
   }
 
   async delete (userId: string): Promise<DeleteUserRepository.Result> {
