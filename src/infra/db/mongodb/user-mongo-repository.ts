@@ -5,12 +5,13 @@ import {
   LoadUsersRepository,
   CheckUserByEmailRepository,
   LoadUserByEmailRepository,
-  UpdateAccessTokenRepository
+  UpdateAccessTokenRepository,
+  LoadUserByTokenRepository
 } from '@/data/protocols/db'
 
 const usersColletionName = 'users'
 
-export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRepository, CheckUserByEmailRepository, LoadUsersRepository, DeleteUserRepository, UpdateAccessTokenRepository {
+export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRepository, CheckUserByEmailRepository, LoadUsersRepository, DeleteUserRepository, UpdateAccessTokenRepository, LoadUserByTokenRepository {
   async add (data: AddUserRepository.Params): Promise<AddUserRepository.Result> {
     const userCollection = await MongoHelper.getCollection(usersColletionName)
     const result = await userCollection.insertOne(data)
@@ -71,5 +72,18 @@ export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRe
     const userCollection = await MongoHelper.getCollection(usersColletionName)
     const result = await userCollection.deleteOne({ _id: userId })
     return result.deletedCount === 1
+  }
+
+  async loadByToken (token: string, role: string): Promise<LoadUserByTokenRepository.Result> {
+    const userCollection = await MongoHelper.getCollection(usersColletionName)
+    const user = await userCollection.findOne({
+      accessToken: token,
+      role: role
+    }, {
+      projection: {
+        _id: 1
+      }
+    })
+    return user && MongoHelper.map(user)
   }
 }

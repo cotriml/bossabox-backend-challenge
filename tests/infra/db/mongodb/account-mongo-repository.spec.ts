@@ -90,7 +90,7 @@ describe('UserMongoRepository', () => {
   })
 
   describe('updateAccessToken()', () => {
-    test('Should update the account accessToken on success', async () => {
+    test('Should update the user accessToken on success', async () => {
       const sut = makeSut()
       const res = await userCollection.insertOne(mockAddUserParams())
       const fakeUser = res.ops[0]

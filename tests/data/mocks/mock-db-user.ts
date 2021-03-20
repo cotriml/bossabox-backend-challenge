@@ -3,7 +3,9 @@ import {
   CheckUserByEmailRepository,
   DeleteUserRepository,
   LoadUserByEmailRepository,
-  LoadUsersRepository
+  LoadUsersRepository,
+  UpdateAccessTokenRepository,
+  LoadUserByTokenRepository
 } from '@/data/protocols'
 import { UserModel } from '@/domain/models'
 import { mockUsersModels } from '@/tests/domain/mocks'
@@ -56,12 +58,34 @@ export class LoadUsersRepositorySpy implements LoadUsersRepository {
   }
 }
 
+export class UpdateAccessTokenRepositorySpy implements UpdateAccessTokenRepository {
+  id: string
+  token: string
+
+  async updateAccessToken (id: string, token: string): Promise<void> {
+    this.id = id
+    this.token = token
+  }
+}
+
 export class DeleteUserRepositorySpy implements DeleteUserRepository {
   result = true
   userId: string
 
   async delete (userId: string): Promise<DeleteUserRepository.Result> {
     this.userId = userId
+    return this.result
+  }
+}
+
+export class LoadUserByTokenRepositorySpy implements LoadUserByTokenRepository {
+  result = { id: faker.random.uuid() }
+  token: string
+  role: string
+
+  async loadByToken (token: string, role: string): Promise<LoadUserByTokenRepository.Result> {
+    this.token = token
+    this.role = role
     return this.result
   }
 }
