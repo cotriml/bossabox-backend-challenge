@@ -1,6 +1,7 @@
 import {
   AddUserRepository,
   CheckUserByEmailRepository,
+  DeleteUserRepository,
   LoadUserByEmailRepository,
   LoadUsersRepository
 } from '@/data/protocols'
@@ -47,9 +48,19 @@ export class LoadUserByEmailRepositorySpy implements LoadUserByEmailRepository {
 
 export class LoadUsersRepositorySpy implements LoadUsersRepository {
   result = mockUsersModels()
+  count: number = 0
+
+  async loadAll (): Promise<UserModel[]> {
+    this.count++
+    return this.result
+  }
+}
+
+export class DeleteUserRepositorySpy implements DeleteUserRepository {
+  result = true
   userId: string
 
-  async loadAll (userId: string): Promise<UserModel[]> {
+  async delete (userId: string): Promise<DeleteUserRepository.Result> {
     this.userId = userId
     return this.result
   }

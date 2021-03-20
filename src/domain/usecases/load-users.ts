@@ -1,7 +1,7 @@
 import { UserModel } from '@/domain/models'
 
 export interface LoadUsers {
-  load: (userId: string) => Promise<LoadUsers.Result>
+  load: () => Promise<LoadUsers.Result>
 }
 
 export namespace LoadUsers {

@@ -1,7 +1,6 @@
 import { DbLoadUsers } from '@/data/usecases'
 import { throwError } from '@/tests/domain/mocks'
 import { LoadUsersRepositorySpy } from '@/tests/data/mocks'
-import faker from 'faker'
 
 type SutTypes = {
   sut: DbLoadUsers
@@ -20,21 +19,20 @@ const makeSut = (): SutTypes => {
 describe('DbLoadUsers', () => {
   test('Should call LoadUsersRepository', async () => {
     const { sut, loadUsersRepositorySpy } = makeSut()
-    const userId = faker.random.uuid()
-    await sut.load(userId)
-    expect(loadUsersRepositorySpy.userId).toBe(userId)
+    await sut.load()
+    expect(loadUsersRepositorySpy.count).toBe(1)
   })
 
   test('Should return a list of Users on success', async () => {
     const { sut, loadUsersRepositorySpy } = makeSut()
-    const users = await sut.load(faker.random.uuid())
+    const users = await sut.load()
     expect(users).toEqual(loadUsersRepositorySpy.result)
   })
 
   test('Should throw if DbLoadUsersRepository throws', async () => {
     const { sut, loadUsersRepositorySpy } = makeSut()
     jest.spyOn(loadUsersRepositorySpy, 'loadAll').mockImplementationOnce(throwError)
-    const promise = sut.load(faker.random.uuid())
+    const promise = sut.load()
     await expect(promise).rejects.toThrow()
   })
 })
