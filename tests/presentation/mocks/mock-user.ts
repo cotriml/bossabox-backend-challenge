@@ -1,6 +1,7 @@
 import {
   AddUser,
-  Authentication
+  Authentication,
+  LoadUserByToken
 } from '@/domain/usecases'
 import faker from 'faker'
 
@@ -24,5 +25,17 @@ export class AuthenticationSpy implements Authentication {
   async auth (authenticationParams: Authentication.Params): Promise<Authentication.Result> {
     this.authenticationParams = authenticationParams
     return this.result
+  }
+}
+
+export class LoadUserByTokenSpy implements LoadUserByToken {
+  result = { id: faker.random.uuid() }
+  accessToken: string
+  role: string
+
+  async load (accessToken: string, role: string): Promise<LoadUserByToken.Result> {
+    this.accessToken = accessToken
+    this.role = role
+    return Promise.resolve(this.result)
   }
 }
