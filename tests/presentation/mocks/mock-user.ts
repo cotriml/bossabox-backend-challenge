@@ -1,8 +1,10 @@
 import {
   AddUser,
   Authentication,
-  LoadUserByToken
+  LoadUserByToken,
+  LoadUsers
 } from '@/domain/usecases'
+import { mockUsersModels } from '@/tests/domain/mocks'
 import faker from 'faker'
 
 export class AddUserSpy implements AddUser {
@@ -37,5 +39,14 @@ export class LoadUserByTokenSpy implements LoadUserByToken {
     this.accessToken = accessToken
     this.role = role
     return Promise.resolve(this.result)
+  }
+}
+
+export class LoadUsersSpy implements LoadUsers {
+  result = mockUsersModels()
+  count: number = 0
+  async load (): Promise<LoadUsers.Result> {
+    this.count++
+    return this.result
   }
 }

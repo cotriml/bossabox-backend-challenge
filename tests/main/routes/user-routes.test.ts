@@ -65,4 +65,12 @@ describe('Users Routes', () => {
         .expect(401)
     })
   })
+
+  describe('GET /users', () => {
+    test('Should return 200 on LoadUsers', async () => {
+      await request(app)
+        .get('/api/users')
+        .expect(204)
+    })
+  })
 })
