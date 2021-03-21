@@ -15,7 +15,7 @@ export class AuthMiddleware implements Middleware {
       if (accessToken) {
         const user = await this.loadUserByToken.load(accessToken, this.role)
         if (user) {
-          return ok({ userId: user.id })
+          return ok({ tokenUserId: user.id })
         }
       }
       return forbidden(new AccessDeniedError())

@@ -34,7 +34,7 @@ describe('LoadUsers Controller', () => {
     const { sut, loadUsersSpy } = makeSut()
     loadUsersSpy.result = []
     const httpResponse = await sut.handle()
-    expect(httpResponse).toEqual(noContent(loadUsersSpy.result))
+    expect(httpResponse).toEqual(noContent())
   })
 
   test('Should reuturn 500 if LoadUsers throws', async () => {

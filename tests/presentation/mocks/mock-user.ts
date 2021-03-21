@@ -1,6 +1,7 @@
 import {
   AddUser,
   Authentication,
+  DeleteUser,
   LoadUserByToken,
   LoadUsers
 } from '@/domain/usecases'
@@ -47,6 +48,15 @@ export class LoadUsersSpy implements LoadUsers {
   count: number = 0
   async load (): Promise<LoadUsers.Result> {
     this.count++
+    return this.result
+  }
+}
+
+export class DeleteUserSpy implements DeleteUser {
+  result = true
+  userId: string
+  async delete (userId: string): Promise<DeleteUser.Result> {
+    this.userId = userId
     return this.result
   }
 }

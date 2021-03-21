@@ -8,6 +8,7 @@ import {
   UpdateAccessTokenRepository,
   LoadUserByTokenRepository
 } from '@/data/protocols/db'
+import { ObjectId } from 'bson'
 
 const usersColletionName = 'users'
 
@@ -70,7 +71,7 @@ export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRe
 
   async delete (userId: string): Promise<DeleteUserRepository.Result> {
     const userCollection = await MongoHelper.getCollection(usersColletionName)
-    const result = await userCollection.deleteOne({ _id: userId })
+    const result = await userCollection.deleteOne({ _id: new ObjectId(userId) })
     return result.deletedCount === 1
   }
 

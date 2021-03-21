@@ -4,6 +4,7 @@ import { MongoHelper } from '@/infra/db'
 import { Collection } from 'mongodb'
 import request from 'supertest'
 import { hash } from 'bcrypt'
+import ObjectID from 'bson-objectid'
 
 let userCollection: Collection
 
@@ -67,10 +68,31 @@ describe('Users Routes', () => {
   })
 
   describe('GET /users', () => {
-    test('Should return 200 on LoadUsers', async () => {
+    test('Should return 200 on LoadUsers success', async () => {
       await request(app)
         .get('/api/users')
         .expect(204)
+    })
+  })
+
+  describe('DELETE /users/:userId', () => {
+    test('Should return 204 on DeleteUser success', async () => {
+      const user = await userCollection.insertOne({
+        name: 'Lucas Cotrim',
+        role: 'admin',
+        email: 'lucascotrim3@hotmail.com',
+        password: '123'
+      })
+      await request(app)
+        .delete(`/api/users/${user.ops[0]._id}`)
+        .expect(204)
+    })
+
+    test('Should return 400 on DeleteUser failure', async () => {
+      const objectId = new ObjectID()
+      await request(app)
+        .delete(`/api/users/${objectId.toHexString()}`)
+        .expect(400)
     })
   })
 })

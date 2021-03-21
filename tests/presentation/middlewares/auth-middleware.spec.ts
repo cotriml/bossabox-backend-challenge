@@ -49,7 +49,7 @@ describe('Auth Middleware', () => {
     const { sut, loadUserByTokenSpy } = makeSut('any_role')
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(ok({
-      userId: loadUserByTokenSpy.result.id
+      tokenUserId: loadUserByTokenSpy.result.id
     }))
   })
 

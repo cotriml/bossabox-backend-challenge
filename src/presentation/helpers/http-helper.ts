@@ -31,7 +31,7 @@ export const created = (): HttpResponse => ({
   body: {}
 })
 
-export const noContent = (data: any): HttpResponse => ({
+export const noContent = (): HttpResponse => ({
   statusCode: 204,
-  body: data || {}
+  body: {}
 })

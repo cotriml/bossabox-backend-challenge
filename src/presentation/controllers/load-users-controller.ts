@@ -8,7 +8,7 @@ export class LoadUsersController implements Controller {
   async handle (): Promise<HttpResponse> {
     try {
       const users = await this.loadUsers.load()
-      return users.length ? ok(users) : noContent(users)
+      return users.length ? ok(users) : noContent()
     } catch (error) {
       return serverError(error)
     }
