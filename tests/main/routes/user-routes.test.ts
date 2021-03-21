@@ -4,9 +4,30 @@ import { MongoHelper } from '@/infra/db'
 import { Collection } from 'mongodb'
 import request from 'supertest'
 import { hash } from 'bcrypt'
+import { sign } from 'jsonwebtoken'
 import ObjectID from 'bson-objectid'
 
 let userCollection: Collection
+
+const makeAccessToken = async (): Promise<string> => {
+  const res = await userCollection.insertOne({
+    name: 'Lucas Cotrim',
+    role: 'admin',
+    email: 'lucascotrim@hotmail.com',
+    password: '123'
+  })
+  const id = res.ops[0]._id
+  const accessToken = sign({ id }, env.jwtSecret)
+
+  await userCollection.updateOne({
+    _id: id
+  }, {
+    $set: {
+      accessToken
+    }
+  })
+  return accessToken
+}
 
 describe('Users Routes', () => {
   beforeAll(async () => {
@@ -23,7 +44,22 @@ describe('Users Routes', () => {
   })
 
   describe('POST /users', () => {
-    test('Should return 200 on addUser', async () => {
+    test('Should return 200 on addUser with valid accessToken', async () => {
+      const accessToken = await makeAccessToken()
+      await request(app)
+        .post('/api/users')
+        .set('x-access-token', accessToken)
+        .send({
+          name: 'Lucas',
+          role: 'admin',
+          email: 'lucascotrim3@hotmail.com',
+          password: '123',
+          passwordConfirmation: '123'
+        })
+        .expect(201)
+    })
+
+    test('Should return 403 on addUser with no accessToken', async () => {
       await request(app)
         .post('/api/users')
         .send({
@@ -33,7 +69,7 @@ describe('Users Routes', () => {
           password: '123',
           passwordConfirmation: '123'
         })
-        .expect(201)
+        .expect(403)
     })
   })
 
@@ -68,15 +104,24 @@ describe('Users Routes', () => {
   })
 
   describe('GET /users', () => {
-    test('Should return 200 on LoadUsers success', async () => {
+    test('Should return 200 on LoadUsers success with valid accessToken', async () => {
+      const accessToken = await makeAccessToken()
       await request(app)
         .get('/api/users')
-        .expect(204)
+        .set('x-access-token', accessToken)
+        .expect(200)
+    })
+
+    test('Should return 403 on LoadUsers success with no accessToken', async () => {
+      await request(app)
+        .get('/api/users')
+        .expect(403)
     })
   })
 
   describe('DELETE /users/:userId', () => {
-    test('Should return 204 on DeleteUser success', async () => {
+    test('Should return 204 on DeleteUser success with valid accessToken', async () => {
+      const accessToken = await makeAccessToken()
       const user = await userCollection.insertOne({
         name: 'Lucas Cotrim',
         role: 'admin',
@@ -85,13 +130,28 @@ describe('Users Routes', () => {
       })
       await request(app)
         .delete(`/api/users/${user.ops[0]._id}`)
+        .set('x-access-token', accessToken)
         .expect(204)
     })
 
+    test('Should return 403 on DeleteUser success with no accessToken', async () => {
+      const user = await userCollection.insertOne({
+        name: 'Lucas Cotrim',
+        role: 'admin',
+        email: 'lucascotrim3@hotmail.com',
+        password: '123'
+      })
+      await request(app)
+        .delete(`/api/users/${user.ops[0]._id}`)
+        .expect(403)
+    })
+
     test('Should return 400 on DeleteUser failure', async () => {
+      const accessToken = await makeAccessToken()
       const objectId = new ObjectID()
       await request(app)
         .delete(`/api/users/${objectId.toHexString()}`)
+        .set('x-access-token', accessToken)
         .expect(400)
     })
   })
