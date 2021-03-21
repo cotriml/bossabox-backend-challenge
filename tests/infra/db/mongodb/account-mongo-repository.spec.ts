@@ -1,3 +1,4 @@
+import env from '@/main/config/env'
 import { MongoHelper, UserMongoRepository } from '@/infra/db'
 import { mockAddUserParams } from '@/tests/domain/mocks'
 import { Collection } from 'mongodb'
@@ -8,7 +9,7 @@ let userCollection: Collection
 
 describe('UserMongoRepository', () => {
   beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL)
+    await MongoHelper.connect(env.mongoUrl)
   })
 
   afterAll(async () => {
