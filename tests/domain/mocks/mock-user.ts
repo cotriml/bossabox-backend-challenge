@@ -1,9 +1,9 @@
 import { AddUser, Authentication } from '@/domain/usecases'
-import faker from 'faker'
 import { UserModel } from '../models/user'
+import faker from 'faker'
 
 export const mockAddUserParams = (): AddUser.Params => ({
-  name: faker.name.findName(),
+  name: faker.name.firstName(),
   role: faker.random.word(),
   email: faker.internet.email(),
   password: faker.internet.password()
