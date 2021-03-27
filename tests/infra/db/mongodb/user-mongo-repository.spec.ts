@@ -26,7 +26,7 @@ describe('UserMongoRepository', () => {
   }
 
   describe('add()', () => {
-    test('Should return an User on success', async () => {
+    test('Should return an true on success', async () => {
       const sut = makeSut()
       const addUserParams = mockAddUserParams()
       const isValid = await sut.add(addUserParams)
