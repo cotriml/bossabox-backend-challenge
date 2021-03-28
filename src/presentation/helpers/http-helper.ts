@@ -28,7 +28,7 @@ export const ok = (data: any): HttpResponse => ({
 
 export const created = (data?: any): HttpResponse => ({
   statusCode: 201,
-  body: {}
+  body: data || {}
 })
 
 export const noContent = (): HttpResponse => ({
