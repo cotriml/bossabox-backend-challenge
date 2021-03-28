@@ -44,7 +44,7 @@ describe('Users Routes', () => {
   })
 
   describe('POST /users', () => {
-    test('Should return 200 on addUser with valid accessToken', async () => {
+    test('Should return 201 on addUser with valid accessToken', async () => {
       const accessToken = await makeAccessToken()
       await request(app)
         .post('/api/users')
