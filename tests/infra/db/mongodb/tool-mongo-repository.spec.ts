@@ -51,6 +51,16 @@ describe('ToolMongoRepository', () => {
       expect(tools[0].tags).toEqual(addToolParams.tags)
     })
 
+    test('Should return a list of Tools with tag parameter on success', async () => {
+      const sut = makeSut()
+      const addToolParams = mockAddToolParams()
+      await toolCollection.insertOne(addToolParams)
+      const tools = await sut.loadAll(addToolParams.tags[0])
+      expect(tools).toBeTruthy()
+      expect(tools[0].id).toBeTruthy()
+      expect(tools[0].tags).toContain(addToolParams.tags[0])
+    })
+
     test('Should return empty array', async () => {
       const sut = makeSut()
       const tools = await sut.loadAll()
