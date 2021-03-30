@@ -1,12 +1,11 @@
-export const signinParamsSchema = {
+export const signinSchema = {
   type: 'object',
   properties: {
-    email: {
+    accessToken: {
       type: 'string'
     },
-    password: {
+    name: {
       type: 'string'
     }
-  },
-  required: ['email', 'password']
+  }
 }

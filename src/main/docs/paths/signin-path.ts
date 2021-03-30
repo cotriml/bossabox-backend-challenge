@@ -1,7 +1,7 @@
 export const signinPath = {
   post: {
     tags: ['User'],
-    summary: 'API para autenticar usuário',
+    summary: 'Autenticar usuário',
     requestBody: {
       content: {
         'application/json': {
@@ -17,7 +17,7 @@ export const signinPath = {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/schemas/user'
+              $ref: '#/schemas/signin'
             }
           }
         }

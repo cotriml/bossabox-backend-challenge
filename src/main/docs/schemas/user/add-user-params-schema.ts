@@ -16,5 +16,6 @@ export const addUserParamsSchema = {
     passwordConfirmation: {
       type: 'string'
     }
-  }
+  },
+  required: ['name', 'role', 'email', 'password', 'passwordConfirmation']
 }

@@ -2,14 +2,22 @@ import {
   errorSchema,
   userSchema,
   usersSchema,
+  signinSchema,
   signinParamsSchema,
-  addUserParamsSchema
+  addUserParamsSchema,
+  toolSchema,
+  toolsSchema,
+  addToolParamsSchema
 } from './schemas/'
 
 export default {
   error: errorSchema,
   user: userSchema,
   users: usersSchema,
+  signin: signinSchema,
   signinParams: signinParamsSchema,
-  addUserParams: addUserParamsSchema
+  addUserParams: addUserParamsSchema,
+  tool: toolSchema,
+  tools: toolsSchema,
+  addToolParams: addToolParamsSchema
 }

@@ -1,17 +1,23 @@
-export const userSchema = {
+export const toolSchema = {
   type: 'object',
   properties: {
     id: {
       type: 'string'
     },
-    name: {
+    title: {
       type: 'string'
     },
-    role: {
+    link: {
       type: 'string'
     },
-    email: {
+    description: {
       type: 'string'
+    },
+    tags: {
+      type: 'array',
+      items: {
+        type: 'string'
+      }
     }
   }
 }

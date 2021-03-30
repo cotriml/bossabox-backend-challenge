@@ -1,15 +1,15 @@
-export const userPath = {
+export const toolPath = {
   post: {
     security: [{
       apiKeyAuth: []
     }],
-    tags: ['User'],
-    summary: 'Criar usuário',
+    tags: ['Tool'],
+    summary: 'Cadastrar uma ferramenta',
     requestBody: {
       content: {
         'application/json': {
           schema: {
-            $ref: '#/schemas/addUserParams'
+            $ref: '#/schemas/addToolParams'
           }
         }
       }
@@ -36,8 +36,16 @@ export const userPath = {
     security: [{
       apiKeyAuth: []
     }],
-    tags: ['User'],
-    summary: 'Listar usuários',
+    tags: ['Tool'],
+    summary: 'Listar ferramentas',
+    parameters: [{
+      in: 'query',
+      name: 'tag',
+      required: false,
+      schema: {
+        type: 'string'
+      }
+    }],
     responses: {
       200: {
         description: 'Sucesso',

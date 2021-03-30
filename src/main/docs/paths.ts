@@ -1,11 +1,15 @@
 import {
   signinPath,
   userPath,
-  deleteUserPath
+  deleteUserPath,
+  toolPath,
+  deleteToolPath
 } from './paths/'
 
 export default {
   '/users/signin': signinPath,
   '/users': userPath,
-  '/users/{userId}': deleteUserPath
+  '/users/{userId}': deleteUserPath,
+  '/tools': toolPath,
+  '/tools/{toolId}': deleteToolPath
 }

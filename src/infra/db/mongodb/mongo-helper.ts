@@ -1,6 +1,7 @@
 import { UserModel } from '@/domain/models'
 import env from '@/main/config/env'
 import { Collection, MongoClient } from 'mongodb'
+import bcrypt from 'bcrypt'
 
 export const MongoHelper = {
   client: null as MongoClient,
@@ -24,11 +25,12 @@ export const MongoHelper = {
   },
   async createRootUser (): Promise<UserModel> {
     const userCollection = await this.getCollection('users')
+    const hashedPassword = await bcrypt.hash(env.rootUserPassword, 12)
     const result = await userCollection.insertOne({
       name: env.rootUserName,
       role: 'admin',
       email: env.rootUserEmail,
-      password: env.rootUserPassword
+      password: hashedPassword
     })
     return this.map(result.ops[0])
   },

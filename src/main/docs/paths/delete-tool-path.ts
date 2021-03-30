@@ -1,13 +1,13 @@
-export const deleteUserPath = {
+export const deleteToolPath = {
   delete: {
     security: [{
       apiKeyAuth: []
     }],
-    tags: ['User'],
-    summary: 'Deletar usuário',
+    tags: ['Tool'],
+    summary: 'Deletar ferramenta',
     parameters: [{
       in: 'path',
-      name: 'userId',
+      name: 'toolId',
       required: true,
       schema: {
         type: 'string'
