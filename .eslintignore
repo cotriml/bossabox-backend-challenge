@@ -4,3 +4,7 @@ dist
 globalConfig.json
 coverage
 .env
+data
+!src/data
+!tests/data
+.vscode
