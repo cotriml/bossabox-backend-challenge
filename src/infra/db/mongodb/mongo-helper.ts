@@ -14,6 +14,7 @@ export const MongoHelper = {
 
     const exist = await this.checkCollectionExist('users')
     if (!exist) {
+      console.log('Creating root user...')
       console.log(await this.createRootUser())
     }
   },
