@@ -1,0 +1,6 @@
+//Watch changes on src and reflect them on dist folder
+{
+  "extends": "./tsconfig-build.json",
+  "rootDir": "src",
+  "rootDirs": [],
+}

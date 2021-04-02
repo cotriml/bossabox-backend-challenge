@@ -22,7 +22,7 @@ services:
       - ROOT_USER_EMAIL=root@mail.com
       - ROOT_USER_PASSWORD=123
     volumes:
-      - ./dist/:/usr/src/bossabox-backend-challenge/dist
+      - ./dist/:/usr/src/bossabox-backend-challenge/dist/
       - ./package.json:/usr/src/bossabox-backend-challenge/package.json
     ports:
       - "3000:3000"
