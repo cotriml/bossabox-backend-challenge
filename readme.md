@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/cotriml/bossabox-backend-challenge.svg?branch=master)](https://travis-ci.org/cotriml/bossabox-backend-challenge)
 [![Coverage Status](https://coveralls.io/repos/github/cotriml/bossabox-backend-challenge/badge.svg?branch=master)](https://coveralls.io/github/cotriml/bossabox-backend-challenge?branch=master)
 
-  <p align="center"><a href="https://laravel.com" target="_blank"><img src="./public/img/nodejs.svg" width="300"></a></p>
+  <p align="center"><a href="https://laravel.com" target="_blank"><img src="./public/img/nodejs.png" width="300"></a></p>
 
 # Very Useful Tools to Remember (VUTTR)
 
@@ -16,16 +16,16 @@ This application is a simple repository to manage tools with its names, links, d
 > ## Usecases
 
 - Users
-  - [Signin](./requirements/user/signin.md)
-  - [Add User](./requirements/user/add-user.md)
-  - [Delete User](./requirements/user/delete-user.md)
-  - [Load Users](./requirements/user/load-users.md)
+  - [Signin](./requirements/users/signin.md)
+  - [Add User](./requirements/users/add-user.md)
+  - [Delete User](./requirements/users/delete-user.md)
+  - [Load Users](./requirements/users/load-users.md)
 
 
 - Tools
-	- [Add tool](./requirements/user/tool/add-tool.md)
-	- [Delete Tool](./requirements/user/tool/delete-tool.md)
-	- [Load Tools](./requirements/user/tool/load-tools.md)
+	- [Add tool](./requirements/tools/add-tool.md)
+	- [Delete Tool](./requirements/tools/delete-tool.md)
+	- [Load Tools](./requirements/tools/load-tools.md)
 
 > ## Environment Variables
 
