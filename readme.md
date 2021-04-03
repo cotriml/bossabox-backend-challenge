@@ -1,0 +1,127 @@
+[![Build Status](https://travis-ci.org/cotriml/bossabox-backend-challenge.svg?branch=master)](https://travis-ci.org/cotriml/bossabox-backend-challenge)
+[![Coverage Status](https://coveralls.io/repos/github/cotriml/bossabox-backend-challenge/badge.svg?branch=master)](https://coveralls.io/github/cotriml/bossabox-backend-challenge?branch=master)
+
+  <p align="center"><a href="https://laravel.com" target="_blank"><img src="./public/img/nodejs.svg" width="300"></a></p>
+
+# Very Useful Tools to Remember (VUTTR)
+
+This application is a simple repository to manage tools with its names, links, description and tags. It also has a user registration to authenticate and give access to the API.
+
+> ## Docs
+
+* [Swagger](http://54.94.247.7:3000/docs/swagger "Swagger API Very Useful Tools to Remember") (deployed on AWS)
+
+* [Postman](./public/postman/) 
+
+> ## Usecases
+
+- Users
+  - [Signin](./requirements/user/signin.md)
+  - [Add User](./requirements/user/add-user.md)
+  - [Delete User](./requirements/user/delete-user.md)
+  - [Load Users](./requirements/user/load-users.md)
+
+
+- Tools
+	- [Add tool](./requirements/user/tool/add-tool.md)
+	- [Delete Tool](./requirements/user/tool/delete-tool.md)
+	- [Load Tools](./requirements/user/tool/load-tools.md)
+
+> ## Environment Variables
+
+Create a .env file on root directory with following variables (recommended):
+
+`MONGO_URL=`\
+`APP_PORT=`\
+`JWT_SECRET=`\
+`ROOT_USER_NAME=`\
+`ROOT_USER_EMAIL=`\
+`ROOT_USER_PASSWORD=`
+
+If it is your first time starting the application, it will automatically create a root admin user on database. All routes are protected and need authentication. 
+
+> ## Starting
+
+* Install dependencies
+
+	`npm install`
+    
+* Start application
+
+	`npm start`
+
+> ## Debugging
+
+Make sure to have debugger configured on your text editor or IDE. 
+
+* For watch directories changes. Run the following command in a separate terminal bash: 
+
+	`npm run watch`
+
+* Debug mode with Docker (make sure Docker is installed and running)
+	
+    `npm run up`
+    
+* Debug mode without Docker
+	
+    `npm run debug`
+
+> ## Testing
+
+On terminal you can run the following commands: 
+
+* General Tests
+	
+	`npm test`
+    
+* Coverage Tests
+
+	`npm run test:coverage`
+    
+* Verbose Tests (more detailed)
+
+	`npm run test:verbose`
+    
+* Staged Tests (uncommitted files)
+
+	`npm run test:staged`
+    
+* Unit/Integration Test (changed files)
+
+	`npm run test:unit`
+
+	`npm run test:integration`
+
+> ## How it was built
+
+* NodeJs
+* Typescript
+* Express
+* MongoDB
+* Jest
+	* Unit Tests
+	* Integration Tests	 
+	* Coverage Tests
+	* Mocks
+	* Spies
+* Swagger
+* Travis CI
+* Docker
+
+> ## Extra Libraries and Tools
+
+* bcrypt
+* jsonWebToken
+* faker
+* dotenv
+* coveralls
+* validator
+* supertest
+* husky
+* lint-staged
+* eslint
+* standard-javascript-style
+* nodemon
+* rimraf
+* In-Memory MongoDb Server
+* module-Alias
