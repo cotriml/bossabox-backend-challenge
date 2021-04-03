@@ -1,17 +1,17 @@
-# Deletar Usuário
+# Delete User
 
-> ## Caso de Sucesso ✅
+> ## Success ✅
 
-1. Recebe uma requisição do tipo DELETE na rota /api/users
-2. Valida se a requisição foi feita por um usuário autenticado
-3. Valida parâmetros obrigatórios **userId**
-4. Deleta um usuário no banco de dados
-5. Retorna 204
+1. Receive a DELETE request on /api/users route
+2. Validate if the request was made by an authenticated user
+3. Validate required fields **userId**
+4. Delete a user on database
+5. Returns 204
 
-> ## Exceções ❌
+> ## Exception ❌
 
-1. Retorna erro 404 se API não existir
-2. Retorna erro 403 se usuário não autenticado
-3. Retorna erro 400 se ausência de parâmetros obrigatórios
-4. Retorna erro 403 usuário não existir
-5. Retorna erro 500 se erro ao tentar deletar o usuário
+1. Returns 404 if route not found
+2. Returns 403 if user not authenticated
+3. Returns 400 if missing any required field
+4. Returns 403 if user not found
+5. Returns 500 if error when deleting user

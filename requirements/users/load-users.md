@@ -1,13 +1,13 @@
-# Listar Usuários
+# Load Users
 
-> ## Caso de Sucesso ✅
+> ## Success ✅
 
-1. Recebe uma requisição do tipo GET na rota /api/users
-2. Valida se a requisição foi feita por um usuário autenticado
-5. Retorna 200 com uma lista de todos os usuários
+1. Receive a GET request on /api/users route
+2. Validate if the request was made by an authenticated user
+5. Returns 200 with a list of users
 
-> ## Exceções ❌
+> ## Exception ❌
 
-1. Retorna erro 404 se API não existir
-2. Retorna erro 403 se usuário não autenticado
-3. Retorna erro 500 se erro ao tentar listar usuários
+1. Returns 404 if route not found
+2. Returns 403 if user not authenticated
+3. Returns 500 if error when loading users

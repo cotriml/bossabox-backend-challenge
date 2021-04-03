@@ -1,19 +1,18 @@
-# Autenticar Usuário
+# User Signin
 
-> ## Caso de Sucesso ✅
+> ## Success ✅
 
-1. Recebe uma requisição do tipo POST na rota /api/users/signin
-2. Valida dados obrigatórios **email** | **password**
-3. Valida **email**
-4. Busca usuário no banco de dados com **email** e **password** fornecidos
-5. Gera um token de acesso a partir do **id** do usuário com expiração de 1h
-6. Retorna 200 com token de acesso e nome do usuário
+1. Receive a POST request on /api/users/signin route
+2. Validate required fields **email** | **password**
+3. Validate if **email** is valid
+4. Find user on database with **email** and **password** given
+5. Generate an access token by user **id** with 1h expiration
+6. Returns 200 with access token and username
 
-> ## Exceções ❌
+> ## Exception ❌
 
-1. Retorna erro 404 se API não existir
-2. Retorna erro 400 se ausência de dados obrigatórios
-3. Retorna erro 400 se **email** não for um e-mail válido
-4. Retorna erro 500 se der erro ao buscar usuário no banco de dados
-5. Retorna erro 500 se der erro ao gerar token de acesso
-6. Retorna erro 500 se erro ao tentar criar o usuário
+1. Returns 404 if route not found
+3. Returns 400 if missing any required field
+4. Returns 400 if **email** not valid
+4. Returns 500 if error when finding user
+5. Returns 500 if error when generating access token

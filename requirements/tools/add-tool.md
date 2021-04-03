@@ -1,16 +1,16 @@
-# Adicionar Ferramenta
+# Add Tool
 
-> ## Caso de Sucesso ✅
+> ## Success ✅
 
-1. Recebe uma requisição do tipo POST na rota /api/tools
-2. Valida se a requisição foi feita por um usuário autenticado
-3. Valida dados obrigatórios **title** | **link** | **description** | **tags**
-7. Cria uma ferramenta no banco de dados
-8. Retorna 201 com objeto criado
+1. Receive a POST request on /api/tools route
+2. Validate if the request was made by an authenticated user
+3. Validate required fields **title** | **link** | **description** | **tags**
+4. Create a tool on database
+5. Returns 201 with created tool
 
-> ## Exceções ❌
+> ## Exception ❌
 
-1. Retorna erro 404 se API não existir
-2. Retorna erro 403 se usuário não autenticado
-3. Retorna erro 400 se ausência de dados obrigatórios
-7. Retorna erro 500 se erro ao tentar criar a ferramenta
+1. Returns 404 if route not found
+2. Returns 403 if user not authenticated
+3. Returns 400 if missing any required field
+4. Returns 500 if error when creating tool
