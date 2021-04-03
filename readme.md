@@ -1,11 +1,14 @@
 [![Build Status](https://travis-ci.org/cotriml/bossabox-backend-challenge.svg?branch=master)](https://travis-ci.org/cotriml/bossabox-backend-challenge)
 [![Coverage Status](https://coveralls.io/repos/github/cotriml/bossabox-backend-challenge/badge.svg?branch=master)](https://coveralls.io/github/cotriml/bossabox-backend-challenge?branch=master)
 
-  <p align="center"><a href="https://laravel.com" target="_blank"><img src="./public/img/nodejs.png" width="300"></a></p>
+  <p align="center"><a href="https://nodejs.org/en/" target="_blank"><img src="./public/img/nodejs.png" width="300"></a></p>
 
 # Very Useful Tools to Remember (VUTTR)
 
 This application is a simple repository to manage tools with its names, links, description and tags. It also has a user registration to authenticate and give access to the API.
+
+> Developed by Lucas Cotrim Machado 
+>> E-mail: lucascotrim3@hotmail.com
 
 > ## Docs
 
