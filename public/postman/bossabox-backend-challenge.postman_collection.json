@@ -1,0 +1,320 @@
+{
+	"info": {
+		"_postman_id": "cf9c9d18-81e6-45d2-99da-f582d708c802",
+		"name": "bossabox-backend-challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "200 auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var accessToken = jsonData.accessToken;",
+									"postman.setEnvironmentVariable(\"x-access-token\", accessToken);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"root@mail.com\",\n    \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users/signin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "201 create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{x-access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Lucas Cotrim Machado\",\n    \"role\": \"admin\",\n    \"email\": \"lucascotrim3@hotmail.com\",\n    \"password\": \"123\",\n    \"passwordConfirmation\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 load Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{x-access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "204 delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{x-access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users/:userId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tool",
+			"item": [
+				{
+					"name": "201 create Tool",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{x-access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"json-server\",\n    \"link\": \"https://github.com/typicode/json-server\",\n    \"description\": \"Fake REST API based on a json schema. Useful for mocking and creating APIs for front-end devs to consume in coding challenges.\",\n    \"tags\": [\n        \"api\",\n        \"json\",\n        \"schema\",\n        \"node\",\n        \"github\",\n        \"rest\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/tools",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"tools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 load Tools",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{x-access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/tools",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"tools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "204 delete Tool",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{x-access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/tools/:toolId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"tools",
+								":toolId"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "toolId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
