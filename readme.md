@@ -128,3 +128,9 @@ On terminal you can run the following commands:
 * rimraf
 * In-Memory MongoDb Server
 * module-Alias
+
+> ## Application Architecture
+
+###### Tools Example
+
+![architecture-diagram](./public/img/architecture-diagram.png)
