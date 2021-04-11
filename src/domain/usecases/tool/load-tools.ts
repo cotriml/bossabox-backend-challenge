@@ -1,7 +1,7 @@
-import { ToolModel } from '@/domain/models'
+import { PaginationModel, ToolModel } from '@/domain/models'
 
 export interface LoadTools {
-  load: (tag?: string) => Promise<LoadTools.Result>
+  load: (tag?: string, pagination?: PaginationModel) => Promise<LoadTools.Result>
 }
 
 export namespace LoadTools {

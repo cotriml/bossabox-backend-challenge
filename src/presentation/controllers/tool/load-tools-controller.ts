@@ -7,8 +7,12 @@ export class LoadToolsController implements Controller {
 
   async handle (request?: LoadToolsController.Request): Promise<HttpResponse> {
     try {
-      const tag = request ? request.tag : null
-      const tools = await this.loadTools.load(tag)
+      const { pageSize, currentPage, tag } = request || {}
+      const pagination = {
+        pageSize: +pageSize,
+        currentPage: +currentPage
+      }
+      const tools = await this.loadTools.load(tag, pagination)
       return tools.length ? ok(tools) : noContent()
     } catch (error) {
       return serverError(error)
@@ -18,6 +22,8 @@ export class LoadToolsController implements Controller {
 
 export namespace LoadToolsController {
   export type Request = {
-    tag: string
+    tag?: string
+    pageSize?: number
+    currentPage?: number
   }
 }

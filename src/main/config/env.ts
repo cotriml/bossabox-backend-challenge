@@ -7,5 +7,8 @@ export default {
   jwtSecret: process.env.JWT_SECRET || 'ASd=123d',
   rootUserName: process.env.ROOT_USER_NAME || 'root',
   rootUserEmail: process.env.ROOT_USER_EMAIL || 'root@root.com',
-  rootUserPassword: process.env.ROOT_USER_PASSWORD || 'root'
+  rootUserPassword: process.env.ROOT_USER_PASSWORD || 'root',
+  maxPageSizePagination: process.env.MAX_PAGE_SIZE_PAGINATION || 100,
+  defaultPageSizePagination: process.env.DEFAULT_PAGE_SIZE_PAGINATION || 10,
+  defaultCurrentPagePagination: process.env.MAX_PAGE_SIZE_PAGINATION || 1
 }

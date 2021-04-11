@@ -4,9 +4,14 @@ import {
   LoadToolsRepository,
   DeleteToolRepository
 } from '@/data/protocols/db'
-import { ObjectId } from 'bson'
+import { PaginationModel } from '@/domain/models'
+import env from '@/main/config/env'
+import { ObjectId } from 'mongodb'
 
 const toolsColletionName = 'tools'
+const maxPageSize = +env.maxPageSizePagination
+const defaultPageSize = +env.defaultPageSizePagination
+const defaultCurrentPage = +env.defaultCurrentPagePagination
 
 export class ToolMongoRepository implements AddToolRepository, LoadToolsRepository, DeleteToolRepository {
   async add (data: AddToolRepository.Params): Promise<AddToolRepository.Result> {
@@ -21,10 +26,14 @@ export class ToolMongoRepository implements AddToolRepository, LoadToolsReposito
     return result.deletedCount === 1
   }
 
-  async loadAll (tag?: string): Promise<LoadToolsRepository.Result> {
+  async loadAll (tag?: string, pagination?: PaginationModel): Promise<LoadToolsRepository.Result> {
     const toolCollection = await MongoHelper.getCollection(toolsColletionName)
+    const { pageSize, currentPage } = pagination || {}
     const query = tag ? { tags: tag } : {}
-    const tools = await toolCollection.find(query).toArray()
+    const tools = await toolCollection.find(query)
+      .skip((pageSize || defaultPageSize) * ((currentPage || defaultCurrentPage) - 1))
+      .limit((pageSize || defaultPageSize) < maxPageSize ? (pageSize || defaultPageSize) : maxPageSize)
+      .toArray()
     return MongoHelper.mapCollection(tools)
   }
 }
