@@ -86,7 +86,7 @@ describe('Tools Routes', () => {
       await request(app)
         .get('/api/tools')
         .set('x-access-token', accessToken)
-        .expect(204)
+        .expect(200)
     })
 
     test('Should return 200 on LoadTools success with tag parameter and valid accessToken', async () => {
@@ -94,7 +94,7 @@ describe('Tools Routes', () => {
       await request(app)
         .get('/api/tools?tag=any_tag')
         .set('x-access-token', accessToken)
-        .expect(204)
+        .expect(200)
     })
 
     test('Should return 403 on LoadTools success with no accessToken', async () => {

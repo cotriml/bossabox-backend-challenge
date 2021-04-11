@@ -1,4 +1,4 @@
-import { noContent, ok, serverError } from '@/presentation/helpers'
+import { paginated, serverError } from '@/presentation/helpers'
 import { Controller, HttpResponse } from '@/presentation/protocols'
 import { LoadTools } from '@/domain/usecases'
 
@@ -13,7 +13,7 @@ export class LoadToolsController implements Controller {
         currentPage: +currentPage
       }
       const tools = await this.loadTools.load(tag, pagination)
-      return tools.length ? ok(tools) : noContent()
+      return paginated(tools, pagination)
     } catch (error) {
       return serverError(error)
     }
