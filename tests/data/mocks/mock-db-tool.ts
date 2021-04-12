@@ -1,5 +1,5 @@
 import { AddToolRepository, DeleteToolRepository, LoadToolsRepository } from '@/data/protocols'
-import { ToolModel } from '@/domain/models'
+import { PaginationModel, ToolModel } from '@/domain/models'
 import { mockToolsModels } from '@/tests/domain/mocks'
 import faker from 'faker'
 
@@ -27,10 +27,13 @@ export class LoadToolsRepositorySpy implements LoadToolsRepository {
   result = mockToolsModels()
   count: number = 0
   tag: string
+  pagination: PaginationModel
 
-  async loadAll (tag?: string): Promise<ToolModel[]> {
+  async loadAll (tag?: string, pagination?: PaginationModel): Promise<ToolModel[]> {
     this.count++
     this.tag = tag
+    this.pagination = pagination
+    
     return this.result
   }
 }

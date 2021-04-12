@@ -51,6 +51,20 @@ describe('ToolMongoRepository', () => {
       expect(tools[0].tags).toEqual(addToolParams.tags)
     })
 
+    test('Should return a paginated list of Tools on success', async () => {
+      const sut = makeSut()
+      const addToolParams = mockAddToolParams()
+      await toolCollection.insertOne(addToolParams)
+      const pagination = { pageSize: 1, currentPage: 1 }
+      const tools = await sut.loadAll(null, pagination)
+      expect(tools).toBeTruthy()
+      expect(tools[0].id).toBeTruthy()
+      expect(tools[0].title).toBe(addToolParams.title)
+      expect(tools[0].link).toBe(addToolParams.link)
+      expect(tools[0].description).toBe(addToolParams.description)
+      expect(tools[0].tags).toEqual(addToolParams.tags)
+    })
+
     test('Should return a list of Tools with tag parameter on success', async () => {
       const sut = makeSut()
       const addToolParams = mockAddToolParams()

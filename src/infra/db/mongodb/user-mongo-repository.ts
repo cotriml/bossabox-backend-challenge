@@ -8,9 +8,14 @@ import {
   UpdateAccessTokenRepository,
   LoadUserByTokenRepository
 } from '@/data/protocols/db'
-import { ObjectId } from 'bson'
+import env from '@/main/config/env'
+import { PaginationModel } from '@/domain/models'
+import { ObjectId } from 'mongodb'
 
 const usersColletionName = 'users'
+const maxPageSize = +env.maxPageSizePagination
+const defaultPageSize = +env.defaultPageSizePagination
+const defaultCurrentPage = +env.defaultCurrentPagePagination
 
 export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRepository, CheckUserByEmailRepository, LoadUsersRepository, DeleteUserRepository, UpdateAccessTokenRepository, LoadUserByTokenRepository {
   async add (data: AddUserRepository.Params): Promise<AddUserRepository.Result> {
@@ -45,8 +50,9 @@ export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRe
     return user !== null
   }
 
-  async loadAll (): Promise<LoadUsersRepository.Result> {
+  async loadAll (pagination?: PaginationModel): Promise<LoadUsersRepository.Result> {
     const userCollection = await MongoHelper.getCollection(usersColletionName)
+    const { pageSize, currentPage } = pagination || {}
     const users = await userCollection.find({}, {
       projection: {
         _id: 1,
@@ -54,7 +60,10 @@ export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRe
         name: 1,
         role: 1
       }
-    }).toArray()
+    })
+      .skip((pageSize || defaultPageSize) * ((currentPage || defaultCurrentPage) - 1))
+      .limit((pageSize || defaultPageSize) < maxPageSize ? (pageSize || defaultPageSize) : maxPageSize)
+      .toArray()
     return MongoHelper.mapCollection(users)
   }
 

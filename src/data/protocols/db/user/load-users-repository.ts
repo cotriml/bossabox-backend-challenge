@@ -1,7 +1,7 @@
-import { UserModel } from '@/domain/models'
+import { PaginationModel, UserModel } from '@/domain/models'
 
 export interface LoadUsersRepository {
-  loadAll: () => Promise<LoadUsersRepository.Result>
+  loadAll: (pagination?: PaginationModel) => Promise<LoadUsersRepository.Result>
 }
 
 export namespace LoadUsersRepository {

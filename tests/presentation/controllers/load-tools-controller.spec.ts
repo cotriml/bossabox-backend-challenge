@@ -43,13 +43,6 @@ describe('LoadTools Controller', () => {
     expect(httpResponse).toEqual(paginated(loadToolsSpy.result))
   })
 
-  test('Should return 204 if LoadTools return empty', async () => {
-    const { sut, loadToolsSpy } = makeSut()
-    loadToolsSpy.result = []
-    const httpResponse = await sut.handle()
-    expect(httpResponse).toEqual(paginated(loadToolsSpy.result))
-  })
-
   test('Should reuturn 500 if LoadTools throws', async () => {
     const { sut, loadToolsSpy } = makeSut()
     jest.spyOn(loadToolsSpy, 'load').mockImplementationOnce(throwError)

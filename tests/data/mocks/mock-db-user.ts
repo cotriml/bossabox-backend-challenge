@@ -7,7 +7,7 @@ import {
   UpdateAccessTokenRepository,
   LoadUserByTokenRepository
 } from '@/data/protocols'
-import { UserModel } from '@/domain/models'
+import { PaginationModel, UserModel } from '@/domain/models'
 import { mockUsersModels } from '@/tests/domain/mocks'
 
 import faker from 'faker'
@@ -51,9 +51,11 @@ export class LoadUserByEmailRepositorySpy implements LoadUserByEmailRepository {
 export class LoadUsersRepositorySpy implements LoadUsersRepository {
   result = mockUsersModels()
   count: number = 0
+  pagination: PaginationModel
 
-  async loadAll (): Promise<UserModel[]> {
+  async loadAll (pagination?: PaginationModel): Promise<UserModel[]> {
     this.count++
+    this.pagination = pagination
     return this.result
   }
 }
