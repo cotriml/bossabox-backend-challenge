@@ -13,7 +13,6 @@ import { PaginationModel } from '@/domain/models'
 import { ObjectId } from 'mongodb'
 
 const usersColletionName = 'users'
-const maxPageSize = +env.maxPageSizePagination
 const defaultPageSize = +env.defaultPageSizePagination
 const defaultCurrentPage = +env.defaultCurrentPagePagination
 
@@ -62,7 +61,7 @@ export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRe
       }
     })
       .skip((pageSize || defaultPageSize) * ((currentPage || defaultCurrentPage) - 1))
-      .limit((pageSize || defaultPageSize) < maxPageSize ? (pageSize || defaultPageSize) : maxPageSize)
+      .limit(pageSize || defaultPageSize)
       .toArray()
     return MongoHelper.mapCollection(users)
   }

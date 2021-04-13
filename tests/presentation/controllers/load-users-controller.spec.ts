@@ -1,19 +1,24 @@
 import { LoadUsersController } from '@/presentation/controllers'
-import { paginated, serverError } from '@/presentation/helpers'
+import { badRequest, paginated, serverError } from '@/presentation/helpers'
 import { throwError } from '@/tests/domain/mocks'
-import { LoadUsersSpy } from '@/tests/presentation/mocks'
+import { LoadUsersSpy, ValidationSpy } from '@/tests/presentation/mocks'
+import { GeneralError } from '@/presentation/errors'
+import faker from 'faker'
 
 type SutTypes = {
   sut: LoadUsersController
   loadUsersSpy: LoadUsersSpy
+  validationSpy: ValidationSpy
 }
 
 const makeSut = (): SutTypes => {
   const loadUsersSpy = new LoadUsersSpy()
-  const sut = new LoadUsersController(loadUsersSpy)
+  const validationSpy = new ValidationSpy()
+  const sut = new LoadUsersController(loadUsersSpy, validationSpy)
   return {
     sut,
-    loadUsersSpy
+    loadUsersSpy,
+    validationSpy
   }
 }
 
@@ -35,5 +40,19 @@ describe('LoadUsers Controller', () => {
     jest.spyOn(loadUsersSpy, 'load').mockImplementationOnce(throwError)
     const httpResponse = await sut.handle()
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('should call Validation with correct values', async () => {
+    const { sut, validationSpy } = makeSut()
+    const request = { pageSize: 1, currentPage: 1 }
+    await sut.handle(request)
+    expect(validationSpy.input).toEqual(request)
+  })
+
+  test('should return 400 if Validation returns and error', async () => {
+    const { sut, validationSpy } = makeSut()
+    validationSpy.error = new GeneralError(faker.random.word())
+    const httpResponse = await sut.handle()
+    expect(httpResponse).toEqual(badRequest(validationSpy.error))
   })
 })
