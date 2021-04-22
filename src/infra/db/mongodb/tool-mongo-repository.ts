@@ -9,7 +9,6 @@ import env from '@/main/config/env'
 import { ObjectId } from 'mongodb'
 
 const toolsColletionName = 'tools'
-const maxPageSize = +env.maxPageSizePagination
 const defaultPageSize = +env.defaultPageSizePagination
 const defaultCurrentPage = +env.defaultCurrentPagePagination
 
@@ -32,7 +31,7 @@ export class ToolMongoRepository implements AddToolRepository, LoadToolsReposito
     const query = tag ? { tags: tag } : {}
     const tools = await toolCollection.find(query)
       .skip((pageSize || defaultPageSize) * ((currentPage || defaultCurrentPage) - 1))
-      .limit((pageSize || defaultPageSize) < maxPageSize ? (pageSize || defaultPageSize) : maxPageSize)
+      .limit(pageSize || defaultPageSize)
       .toArray()
     return MongoHelper.mapCollection(tools)
   }
