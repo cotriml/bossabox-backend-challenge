@@ -45,6 +45,21 @@ export const toolPath = {
       schema: {
         type: 'string'
       }
+    }, {
+      in: 'query',
+      name: 'pageSize',
+      required: false,
+      schema: {
+        type: 'integer',
+        maximum: 100
+      }
+    }, {
+      in: 'query',
+      name: 'currentPage',
+      required: false,
+      schema: {
+        type: 'integer'
+      }
     }],
     responses: {
       200: {
@@ -52,7 +67,7 @@ export const toolPath = {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/schemas/users'
+              $ref: '#/schemas/tools'
             }
           }
         }
@@ -62,6 +77,9 @@ export const toolPath = {
       },
       404: {
         $ref: '#/components/notFound'
+      },
+      400: {
+        $ref: '#/components/badRequest'
       },
       500: {
         $ref: '#/components/serverError'

@@ -38,6 +38,22 @@ export const userPath = {
     }],
     tags: ['User'],
     summary: 'Listar usuários',
+    parameters: [{
+      in: 'query',
+      name: 'pageSize',
+      required: false,
+      schema: {
+        type: 'integer',
+        maximum: 100
+      }
+    }, {
+      in: 'query',
+      name: 'currentPage',
+      required: false,
+      schema: {
+        type: 'integer'
+      }
+    }],
     responses: {
       200: {
         description: 'Sucesso',
@@ -54,6 +70,9 @@ export const userPath = {
       },
       404: {
         $ref: '#/components/notFound'
+      },
+      400: {
+        $ref: '#/components/badRequest'
       },
       500: {
         $ref: '#/components/serverError'
