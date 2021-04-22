@@ -10,7 +10,10 @@ export class DeleteUserController implements Controller {
 
   async handle (request: DeleteUserController.Request): Promise<HttpResponse> {
     try {
-      const { userId } = request
+      const { userId, tokenUserId } = request
+      if (tokenUserId === userId) {
+        return badRequest(new InvalidParamError('userId'))
+      }
       const result = await this.deleteUser.delete(userId)
       if (!result) {
         return badRequest(new InvalidParamError('userId'))
@@ -25,5 +28,6 @@ export class DeleteUserController implements Controller {
 export namespace DeleteUserController {
   export type Request = {
     userId: string
+    tokenUserId: string
   }
 }

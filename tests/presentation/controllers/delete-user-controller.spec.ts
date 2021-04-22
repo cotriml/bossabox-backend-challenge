@@ -6,7 +6,8 @@ import { throwError } from '@/tests/domain/mocks'
 import faker from 'faker'
 
 const mockRequest = (): DeleteUserController.Request => ({
-  userId: faker.random.uuid()
+  userId: faker.random.uuid(),
+  tokenUserId: faker.random.uuid()
 })
 
 type SutTypes = {
@@ -42,6 +43,14 @@ describe('DeleteUserController', () => {
     const { sut, deleteUserSpy } = makeSut()
     deleteUserSpy.result = false
     const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(badRequest(new InvalidParamError('userId')))
+  })
+
+  test('Should return 400 if userId is equal tokenUserId', async () => {
+    const { sut } = makeSut()
+    const request = mockRequest()
+    request.userId = request.tokenUserId
+    const httpResponse = await sut.handle(request)
     expect(httpResponse).toEqual(badRequest(new InvalidParamError('userId')))
   })
 
