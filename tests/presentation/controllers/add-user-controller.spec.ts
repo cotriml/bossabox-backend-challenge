@@ -46,15 +46,15 @@ describe('AddUser Controller', () => {
     })
   })
 
-  test('should return 201 if AddUser returns true', async () => {
-    const { sut } = makeSut()
+  test('should return 201 if AddUser returns an user', async () => {
+    const { sut, addUserSpy } = makeSut()
     const httpResponse = await sut.handle(mockRequest())
-    expect(httpResponse).toEqual(created())
+    expect(httpResponse).toEqual(created(addUserSpy.result))
   })
 
-  test('should return 403 if AddUser returns false', async () => {
+  test('should return 403 if AddUser returns null', async () => {
     const { sut, addUserSpy } = makeSut()
-    addUserSpy.result = false
+    addUserSpy.result = null
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(forbidden(new EmailInUseError()))
   })

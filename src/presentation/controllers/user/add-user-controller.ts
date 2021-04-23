@@ -16,17 +16,17 @@ export class AddUserController implements Controller {
         return badRequest(error)
       }
       const { name, role, email, password } = request
-      const isValid = await this.addUser.add({
+      const user = await this.addUser.add({
         name,
         role,
         email,
         password
       })
 
-      if (!isValid) {
+      if (!user) {
         return forbidden(new EmailInUseError())
       }
-      return created()
+      return created(user)
     } catch (error) {
       return serverError(error)
     }

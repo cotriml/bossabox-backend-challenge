@@ -47,7 +47,7 @@ describe('AddTool Controller', () => {
     })
   })
 
-  test('should return 201 if AddTool returns true', async () => {
+  test('should return 201 if AddTool returns a tool', async () => {
     const { sut, addToolSpy } = makeSut()
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(created(addToolSpy.result))

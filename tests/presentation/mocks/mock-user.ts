@@ -9,7 +9,13 @@ import { mockUsersModels } from '@/tests/domain/mocks'
 import faker from 'faker'
 
 export class AddUserSpy implements AddUser {
-  result = true
+  result = {
+    id: faker.random.uuid(),
+    name: faker.name.firstName(),
+    role: faker.random.word(),
+    email: faker.internet.email()
+  }
+
   addUserParams: AddUser.Params
   async add (user: AddUser.Params): Promise<AddUser.Result> {
     this.addUserParams = user

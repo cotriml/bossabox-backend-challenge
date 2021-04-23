@@ -1,3 +1,5 @@
+import { UserModel } from '@/domain/models'
+
 export interface AddUser {
   add: (user: AddUser.Params) => Promise<AddUser.Result>
 }
@@ -10,5 +12,5 @@ export namespace AddUser {
     password: string
   }
 
-  export type Result = boolean
+  export type Result = Omit<UserModel, 'password'>
 }

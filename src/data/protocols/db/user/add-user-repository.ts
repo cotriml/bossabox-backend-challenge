@@ -6,5 +6,5 @@ export interface AddUserRepository {
 
 export namespace AddUserRepository {
   export type Params = AddUser.Params
-  export type Result = boolean
+  export type Result = AddUser.Result
 }

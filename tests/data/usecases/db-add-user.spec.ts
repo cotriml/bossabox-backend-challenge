@@ -49,31 +49,18 @@ describe('DbAddUser Usecase', () => {
     })
   })
 
-  test('Should throw if AddUserRepository  throws', async () => {
+  test('Should throw if AddUserRepository throws', async () => {
     const { sut, addUserRepositorySpy } = makeSut()
     jest.spyOn(addUserRepositorySpy, 'add').mockImplementationOnce(throwError)
     const promise = sut.add(mockAddUserParams())
     await expect(promise).rejects.toThrow()
   })
 
-  test('Should return false if AddUserRepository returns false', async () => {
+  test('Should return an user on success', async () => {
     const { sut, addUserRepositorySpy } = makeSut()
-    addUserRepositorySpy.result = false
-    const isValid = await sut.add(mockAddUserParams())
-    expect(isValid).toBe(false)
-  })
-
-  test('Should return true on success', async () => {
-    const { sut } = makeSut()
-    const isValid = await sut.add(mockAddUserParams())
-    expect(isValid).toBe(true)
-  })
-
-  test('Should return false if CheckUserByEmailRepository return true', async () => {
-    const { sut, checkUserByEmailRepositorySpy } = makeSut()
-    checkUserByEmailRepositorySpy.result = true
-    const isValid = await sut.add(mockAddUserParams())
-    expect(isValid).toBe(false)
+    const user = await sut.add(mockAddUserParams())
+    expect(user).toBeTruthy()
+    expect(user).toBe(addUserRepositorySpy.result)
   })
 
   test('Should call CheckUserByEmailRepository with correct email', async () => {
@@ -81,6 +68,13 @@ describe('DbAddUser Usecase', () => {
     const addUserParams = mockAddUserParams()
     await sut.add(addUserParams)
     expect(checkUserByEmailRepositorySpy.email).toBe(addUserParams.email)
+  })
+
+  test('Should return null if CheckUserByEmailRepository return true', async () => {
+    const { sut, checkUserByEmailRepositorySpy } = makeSut()
+    checkUserByEmailRepositorySpy.result = true
+    const user = await sut.add(mockAddUserParams())
+    expect(user).toBe(null)
   })
 
   test('Should throw if CheckUserByEmailRepository throws', async () => {

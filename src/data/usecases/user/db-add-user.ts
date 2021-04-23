@@ -10,11 +10,11 @@ export class DbAddUser implements AddUser {
 
   async add (userData: AddUser.Params): Promise<AddUser.Result> {
     const exists = await this.checkUserByEmailRepository.checkByEmail(userData.email)
-    let isValid = false
-    if (!exists) {
-      const hashedPassword = await this.hasher.hash(userData.password)
-      isValid = await this.addUserRepository.add({ ...userData, password: hashedPassword })
+    if (exists) {
+      return null
     }
-    return isValid
+
+    const hashedPassword = await this.hasher.hash(userData.password)
+    return await this.addUserRepository.add({ ...userData, password: hashedPassword })
   }
 }
