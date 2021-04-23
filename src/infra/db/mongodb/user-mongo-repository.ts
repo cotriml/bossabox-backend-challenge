@@ -20,8 +20,8 @@ export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRe
   async add (data: AddUserRepository.Params): Promise<AddUserRepository.Result> {
     const userCollection = await MongoHelper.getCollection(usersColletionName)
     const result = await userCollection.insertOne(data)
-    delete result.ops[0]?.password
-    return MongoHelper.map(result.ops[0])
+    const { password, ...rest } = result.ops[0]
+    return MongoHelper.map(Object.assign({}, rest))
   }
 
   async loadByEmail (email: string): Promise<LoadUserByEmailRepository.Result> {
@@ -69,14 +69,13 @@ export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRe
 
   async updateAccessToken (id: string, token: string): Promise<void> {
     const userCollection = await MongoHelper.getCollection(usersColletionName)
-    const teste = await userCollection.updateOne({
+    await userCollection.updateOne({
       _id: new ObjectId(id)
     }, {
       $set: {
         accessToken: token
       }
     })
-    console.log(teste)
   }
 
   async delete (userId: string): Promise<DeleteUserRepository.Result> {
