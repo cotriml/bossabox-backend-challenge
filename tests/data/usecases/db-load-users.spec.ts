@@ -36,7 +36,7 @@ describe('DbLoadUsers', () => {
     expect(pagination).toEqual(loadUsersRepositorySpy.pagination)
   })
 
-  test('Should throw if DbLoadUsersRepository throws', async () => {
+  test('Should throw if LoadUsersRepository throws', async () => {
     const { sut, loadUsersRepositorySpy } = makeSut()
     jest.spyOn(loadUsersRepositorySpy, 'loadAll').mockImplementationOnce(throwError)
     const promise = sut.load()
