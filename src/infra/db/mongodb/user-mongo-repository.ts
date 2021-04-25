@@ -1,4 +1,4 @@
-import { MongoHelper } from '@/infra/db'
+import { MongoHelper, QueryBuilder } from '@/infra/db'
 import {
   AddUserRepository,
   DeleteUserRepository,
@@ -53,18 +53,52 @@ export class UserMongoRepository implements AddUserRepository, LoadUserByEmailRe
   async loadAll (pagination?: PaginationModel): Promise<LoadUsersRepository.Result> {
     const userCollection = await MongoHelper.getCollection(usersColletionName)
     const { pageSize, currentPage } = pagination || {}
-    const users = await userCollection.find({}, {
-      projection: {
-        _id: 1,
-        email: 1,
-        name: 1,
-        role: 1
-      }
-    })
+    const totalRecords = await userCollection.countDocuments()
+    const query = new QueryBuilder()
       .skip((pageSize || defaultPageSize) * ((currentPage || defaultCurrentPage) - 1))
       .limit(pageSize || defaultPageSize)
-      .toArray()
-    return MongoHelper.mapCollection(users)
+      .group({
+        _id: 0,
+        data: {
+          $push: '$$ROOT'
+        },
+        total: {
+          $sum: 1
+        }
+      })
+      .addFields({
+        metadata: {
+          totalRecords: totalRecords,
+          totalFiltered: '$total',
+          pageSize: pageSize || defaultPageSize,
+          currentPage: currentPage || defaultCurrentPage
+        }
+      })
+      .project({
+        _id: 0,
+        data: {
+          _id: 1,
+          email: 1,
+          name: 1,
+          role: 1
+        },
+        metadata: 1
+      })
+      .build()
+    let users = await userCollection.aggregate(query).toArray()
+    if (users.length === 0) {
+      users = [{
+        data: [],
+        metadata: {
+          totalRecords: totalRecords,
+          totalFiltered: 0,
+          pageSize: pageSize || defaultPageSize,
+          currentPage: currentPage || defaultCurrentPage
+        }
+      }]
+    }
+    users[0].data = MongoHelper.mapCollection(users[0].data)
+    return users[0]
   }
 
   async updateAccessToken (id: string, token: string): Promise<void> {

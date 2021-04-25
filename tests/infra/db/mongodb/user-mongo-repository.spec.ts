@@ -78,18 +78,32 @@ describe('UserMongoRepository', () => {
       const addUserParams = mockAddUserParams()
       await userCollection.insertOne(addUserParams)
       const users = await sut.loadAll()
+      expect(users.data).toBeTruthy()
+      expect(users.data[0].id).toBeTruthy()
+      expect(users.data[0].name).toBe(addUserParams.name)
+      expect(users.data[0].role).toBe(addUserParams.role)
+      expect(users.data[0].email).toBe(addUserParams.email)
+      expect(users.data[0].password).toBeFalsy()
+    })
+
+    test('Should return a paginated list of Users on success', async () => {
+      const sut = makeSut()
+      const addUserParams = mockAddUserParams()
+      await userCollection.insertOne(addUserParams)
+      const pagination = { pageSize: 1, currentPage: 1 }
+      const users = await sut.loadAll(pagination)
       expect(users).toBeTruthy()
-      expect(users[0].id).toBeTruthy()
-      expect(users[0].name).toBe(addUserParams.name)
-      expect(users[0].role).toBe(addUserParams.role)
-      expect(users[0].email).toBe(addUserParams.email)
-      expect(users[0].password).toBeFalsy()
+      expect(users.data[0].id).toBeTruthy()
+      expect(users.data[0].name).toBe(addUserParams.name)
+      expect(users.data[0].role).toBe(addUserParams.role)
+      expect(users.data[0].email).toBe(addUserParams.email)
+      expect(users.data[0].password).toBeFalsy()
     })
 
     test('Should return empty array', async () => {
       const sut = makeSut()
       const users = await sut.loadAll()
-      expect(users).toEqual([])
+      expect(users.data).toEqual([])
     })
   })
 

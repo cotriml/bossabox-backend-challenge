@@ -1,5 +1,5 @@
 import { LoadToolsController } from '@/presentation/controllers'
-import { badRequest, paginated, serverError } from '@/presentation/helpers'
+import { badRequest, ok, serverError } from '@/presentation/helpers'
 import { throwError } from '@/tests/domain/mocks'
 import { LoadToolsSpy, ValidationSpy } from '@/tests/presentation/mocks'
 import { GeneralError } from '@/presentation/errors'
@@ -44,7 +44,7 @@ describe('LoadTools Controller', () => {
   test('Should return 200 on success', async () => {
     const { sut, loadToolsSpy } = makeSut()
     const httpResponse = await sut.handle()
-    expect(httpResponse).toEqual(paginated(loadToolsSpy.result))
+    expect(httpResponse).toEqual(ok(loadToolsSpy.result))
   })
 
   test('Should reuturn 500 if LoadTools throws', async () => {

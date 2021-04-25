@@ -29,7 +29,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"root@mail.com\",\n    \"password\": \"123\"\n}",
+							"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -79,7 +79,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Lucas Cotrim Machado\",\n    \"role\": \"admin\",\n    \"email\": \"lucascotrim3@hotmail.com\",\n    \"password\": \"123\",\n    \"passwordConfirmation\": \"123\"\n}",
+							"raw": "{\n    \"name\": \"Lucas Cotrim Machado\",\n    \"role\": \"admin\",\n    \"email\": \"lucascotrim32@hotmail.com\",\n    \"password\": \"123\",\n    \"passwordConfirmation\": \"123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

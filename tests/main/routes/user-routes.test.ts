@@ -4,7 +4,7 @@ import { MongoHelper } from '@/infra/db'
 import { Collection } from 'mongodb'
 import request from 'supertest'
 import { hash } from 'bcrypt'
-import { sign } from 'jsonwebtoken'
+import { sign, decode } from 'jsonwebtoken'
 import ObjectID from 'bson-objectid'
 
 let userCollection: Collection
@@ -151,6 +151,16 @@ describe('Users Routes', () => {
       const objectId = new ObjectID()
       await request(app)
         .delete(`/api/users/${objectId.toHexString()}`)
+        .set('x-access-token', accessToken)
+        .expect(400)
+    })
+
+    test('Should return 400 on trying to delete yourself', async () => {
+      const accessToken = await makeAccessToken()
+      const { id } = decode(accessToken)
+
+      await request(app)
+        .delete(`/api/users/${id}`)
         .set('x-access-token', accessToken)
         .expect(400)
     })

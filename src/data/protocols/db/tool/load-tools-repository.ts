@@ -5,5 +5,7 @@ export interface LoadToolsRepository {
 }
 
 export namespace LoadToolsRepository {
-  export type Result = ToolModel[]
+  export type Result = {
+    data: ToolModel[]
+  }
 }

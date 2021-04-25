@@ -1,4 +1,4 @@
-import { MongoHelper } from '@/infra/db'
+import { MongoHelper, QueryBuilder } from '@/infra/db'
 import {
   AddToolRepository,
   LoadToolsRepository,
@@ -28,11 +28,49 @@ export class ToolMongoRepository implements AddToolRepository, LoadToolsReposito
   async loadAll (tag?: string, pagination?: PaginationModel): Promise<LoadToolsRepository.Result> {
     const toolCollection = await MongoHelper.getCollection(toolsColletionName)
     const { pageSize, currentPage } = pagination || {}
-    const query = tag ? { tags: tag } : {}
-    const tools = await toolCollection.find(query)
+    const filter = tag ? { tags: tag } : {}
+
+    const totalRecords = await toolCollection.countDocuments(filter)
+    const query = new QueryBuilder()
+      .match(filter)
       .skip((pageSize || defaultPageSize) * ((currentPage || defaultCurrentPage) - 1))
       .limit(pageSize || defaultPageSize)
-      .toArray()
-    return MongoHelper.mapCollection(tools)
+      .group({
+        _id: 0,
+        data: {
+          $push: '$$ROOT'
+        },
+        total: {
+          $sum: 1
+        }
+      })
+      .addFields({
+        metadata: {
+          totalRecords: totalRecords,
+          totalFiltered: '$total',
+          pageSize: pageSize || defaultPageSize,
+          currentPage: currentPage || defaultCurrentPage
+        }
+      })
+      .project({
+        _id: 0,
+        data: 1,
+        metadata: 1
+      })
+      .build()
+    let tools = await toolCollection.aggregate(query).toArray()
+    if (tools.length === 0) {
+      tools = [{
+        data: [],
+        metadata: {
+          totalRecords: totalRecords,
+          totalFiltered: 0,
+          pageSize: pageSize || defaultPageSize,
+          currentPage: currentPage || defaultCurrentPage
+        }
+      }]
+    }
+    tools[0].data = MongoHelper.mapCollection(tools[0].data)
+    return tools[0]
   }
 }

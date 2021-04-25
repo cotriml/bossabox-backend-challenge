@@ -24,16 +24,16 @@ export class AddToolRepositorySpy implements AddToolRepository {
 }
 
 export class LoadToolsRepositorySpy implements LoadToolsRepository {
-  result = mockToolsModels()
+  result = { data: mockToolsModels() }
   count: number = 0
   tag: string
   pagination: PaginationModel
 
-  async loadAll (tag?: string, pagination?: PaginationModel): Promise<ToolModel[]> {
+  async loadAll (tag?: string, pagination?: PaginationModel): Promise<LoadToolsRepository.Result> {
     this.count++
     this.tag = tag
     this.pagination = pagination
-    
+
     return this.result
   }
 }

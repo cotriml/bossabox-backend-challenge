@@ -5,5 +5,7 @@ export interface LoadUsersRepository {
 }
 
 export namespace LoadUsersRepository {
-  export type Result = UserModel[]
+  export type Result = {
+    data: UserModel[]
+  }
 }

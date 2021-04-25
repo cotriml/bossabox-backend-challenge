@@ -22,7 +22,7 @@ export class AddToolSpy implements AddTool {
 }
 
 export class LoadToolsSpy implements LoadTools {
-  result = mockToolsModels()
+  result = { data: mockToolsModels() }
   count: number = 0
   tag: string
   async load (tag?: string): Promise<LoadTools.Result> {

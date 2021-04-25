@@ -50,7 +50,7 @@ export class LoadUserByTokenSpy implements LoadUserByToken {
 }
 
 export class LoadUsersSpy implements LoadUsers {
-  result = mockUsersModels()
+  result = { data: mockUsersModels() }
   count: number = 0
   async load (): Promise<LoadUsers.Result> {
     this.count++

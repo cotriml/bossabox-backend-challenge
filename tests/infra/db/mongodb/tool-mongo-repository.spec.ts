@@ -44,11 +44,11 @@ describe('ToolMongoRepository', () => {
       await toolCollection.insertOne(addToolParams)
       const tools = await sut.loadAll()
       expect(tools).toBeTruthy()
-      expect(tools[0].id).toBeTruthy()
-      expect(tools[0].title).toBe(addToolParams.title)
-      expect(tools[0].link).toBe(addToolParams.link)
-      expect(tools[0].description).toBe(addToolParams.description)
-      expect(tools[0].tags).toEqual(addToolParams.tags)
+      expect(tools.data[0].id).toBeTruthy()
+      expect(tools.data[0].title).toBe(addToolParams.title)
+      expect(tools.data[0].link).toBe(addToolParams.link)
+      expect(tools.data[0].description).toBe(addToolParams.description)
+      expect(tools.data[0].tags).toEqual(addToolParams.tags)
     })
 
     test('Should return a paginated list of Tools on success', async () => {
@@ -58,11 +58,11 @@ describe('ToolMongoRepository', () => {
       const pagination = { pageSize: 1, currentPage: 1 }
       const tools = await sut.loadAll(null, pagination)
       expect(tools).toBeTruthy()
-      expect(tools[0].id).toBeTruthy()
-      expect(tools[0].title).toBe(addToolParams.title)
-      expect(tools[0].link).toBe(addToolParams.link)
-      expect(tools[0].description).toBe(addToolParams.description)
-      expect(tools[0].tags).toEqual(addToolParams.tags)
+      expect(tools.data[0].id).toBeTruthy()
+      expect(tools.data[0].title).toBe(addToolParams.title)
+      expect(tools.data[0].link).toBe(addToolParams.link)
+      expect(tools.data[0].description).toBe(addToolParams.description)
+      expect(tools.data[0].tags).toEqual(addToolParams.tags)
     })
 
     test('Should return a list of Tools with tag parameter on success', async () => {
@@ -71,14 +71,14 @@ describe('ToolMongoRepository', () => {
       await toolCollection.insertOne(addToolParams)
       const tools = await sut.loadAll(addToolParams.tags[0])
       expect(tools).toBeTruthy()
-      expect(tools[0].id).toBeTruthy()
-      expect(tools[0].tags).toContain(addToolParams.tags[0])
+      expect(tools.data[0].id).toBeTruthy()
+      expect(tools.data[0].tags).toContain(addToolParams.tags[0])
     })
 
     test('Should return empty array', async () => {
       const sut = makeSut()
       const tools = await sut.loadAll()
-      expect(tools).toEqual([])
+      expect(tools.data).toEqual([])
     })
   })
 

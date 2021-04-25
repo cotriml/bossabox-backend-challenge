@@ -1,4 +1,3 @@
-import env from '@/main/config/env'
 import { ServerError, UnauthorizedError } from '@/presentation/errors'
 import { HttpResponse } from '@/presentation/protocols/http'
 
@@ -24,28 +23,12 @@ export const serverError = (error: Error): HttpResponse => ({
 
 export const ok = (data: any): HttpResponse => ({
   statusCode: 200,
-  body: {
-    data: data
-  }
-})
-
-export const paginated = (data: any, metadata?: any): HttpResponse => ({
-  statusCode: 200,
-  body: {
-    data: data,
-    metadata: {
-      pageSize: metadata?.pageSize || env.defaultPageSizePagination,
-      currentPage: metadata?.currentPage || env.defaultCurrentPagePagination,
-      maxPageSize: env.maxPageSizePagination
-    }
-  }
+  body: data
 })
 
 export const created = (data: any): HttpResponse => ({
   statusCode: 201,
-  body: {
-    data: data
-  }
+  body: data
 })
 
 export const noContent = (): HttpResponse => ({

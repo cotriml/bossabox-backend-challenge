@@ -54,11 +54,11 @@ export class LoadUserByEmailRepositorySpy implements LoadUserByEmailRepository {
 }
 
 export class LoadUsersRepositorySpy implements LoadUsersRepository {
-  result = mockUsersModels()
+  result = { data: mockUsersModels() }
   count: number = 0
   pagination: PaginationModel
 
-  async loadAll (pagination?: PaginationModel): Promise<UserModel[]> {
+  async loadAll (pagination?: PaginationModel): Promise<LoadUsersRepository.Result> {
     this.count++
     this.pagination = pagination
     return this.result

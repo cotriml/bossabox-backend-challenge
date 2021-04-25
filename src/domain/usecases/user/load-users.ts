@@ -5,5 +5,7 @@ export interface LoadUsers {
 }
 
 export namespace LoadUsers {
-  export type Result = UserModel[]
+  export type Result = {
+    data: UserModel[]
+  }
 }

@@ -1,4 +1,4 @@
-import { badRequest, paginated, serverError } from '@/presentation/helpers'
+import { badRequest, ok, serverError } from '@/presentation/helpers'
 import { Controller, HttpResponse, Validation } from '@/presentation/protocols'
 import { LoadUsers } from '@/domain/usecases'
 
@@ -20,7 +20,7 @@ export class LoadUsersController implements Controller {
         currentPage: +currentPage
       }
       const users = await this.loadUsers.load(pagination)
-      return paginated(users, pagination)
+      return ok(users)
     } catch (error) {
       return serverError(error)
     }
