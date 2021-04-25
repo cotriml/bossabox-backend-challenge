@@ -22,7 +22,9 @@ describe('MaxPageSizeValidation', () => {
 
   test('Should not return if validation succeeds', () => {
     const sut = makesut()
-    const value = faker.random.word()
+    const value = faker.random.number({
+      max: +env.maxPageSizePagination
+    })
     const error = sut.validate({ [field]: value })
     expect(error).toBeFalsy()
   })
