@@ -1,6 +1,6 @@
 {
   "name": "bossabox-backend-challenge",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Projeto criado para o desafio da plataforma BossaBox",
   "main": "index.js",
   "scripts": {
