@@ -32,14 +32,19 @@ This application is a simple repository to manage tools with its names, links, d
 
 > ## Environment Variables
 
-Create a .env file on root directory with following variables (recommended):
+Create a .env file on root directory with following environment variables (recommended):
 
 `MONGO_URL=`\
 `APP_PORT=`\
 `JWT_SECRET=`\
 `ROOT_USER_NAME=`\
 `ROOT_USER_EMAIL=`\
-`ROOT_USER_PASSWORD=`
+`ROOT_USER_PASSWORD=`\
+`MAX_PAGE_SIZE_PAGINATION=`\
+`DEFAULT_PAGE_SIZE_PAGINATION=`\
+`MAX_PAGE_SIZE_PAGINATION=`
+
+ > All of these values are already set on application by default, but I recommend to change them through environment variables. 
 
 If it is your first time starting the application, it will automatically create a root admin user on database. All routes are protected and need authentication. 
 
@@ -57,7 +62,7 @@ If it is your first time starting the application, it will automatically create 
 
 Make sure to have debugger configured on your text editor or IDE. 
 
-* For watch directories changes. Run the following command in a separate terminal bash: 
+* For watch directories changes, run the following command in a separate terminal bash: 
 
 	`npm run watch`
 
@@ -79,7 +84,7 @@ On terminal you can run the following commands:
     
 * Coverage Tests
 
-	`npm run test:coverage`
+	`npm run test:ci`
     
 * Verbose Tests (more detailed)
 
