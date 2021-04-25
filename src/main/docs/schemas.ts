@@ -7,11 +7,13 @@ import {
   addUserParamsSchema,
   toolSchema,
   toolsSchema,
-  addToolParamsSchema
+  addToolParamsSchema,
+  metadataSchema
 } from './schemas/'
 
 export default {
   error: errorSchema,
+  metadata: metadataSchema,
   user: userSchema,
   users: usersSchema,
   signin: signinSchema,
