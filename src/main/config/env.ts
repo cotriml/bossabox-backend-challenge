@@ -10,5 +10,5 @@ export default {
   rootUserPassword: process.env.ROOT_USER_PASSWORD || 'root',
   maxPageSizePagination: process.env.MAX_PAGE_SIZE_PAGINATION || 100,
   defaultPageSizePagination: process.env.DEFAULT_PAGE_SIZE_PAGINATION || 10,
-  defaultCurrentPagePagination: process.env.MAX_PAGE_SIZE_PAGINATION || 1
+  defaultCurrentPagePagination: process.env.DEFAULT_CURRENT_SIZE_PAGINATION || 1
 }

@@ -42,7 +42,7 @@ Create a .env file on root directory with following environment variables (recom
 `ROOT_USER_PASSWORD=`\
 `MAX_PAGE_SIZE_PAGINATION=`\
 `DEFAULT_PAGE_SIZE_PAGINATION=`\
-`MAX_PAGE_SIZE_PAGINATION=`
+`DEFAULT_CURRENT_SIZE_PAGINATION=`
 
  > All of these values are already set on application by default, but I recommend to change them through environment variables. 
 
