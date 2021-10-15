@@ -12,7 +12,7 @@ This application is a simple repository to manage tools with its names, links, d
 
 > ## Docs
 
-* [Swagger](http://54.94.247.7:3000/docs/swagger "Swagger API Very Useful Tools to Remember") (deployed on AWS)
+* [Swagger](http://18.230.56.129:3000/docs/swagger "Swagger API Very Useful Tools to Remember") (deployed on AWS)
 
 * [Postman](./public/postman/) 
 
